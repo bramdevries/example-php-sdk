@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Api\Client;
 
+use Api\Client\Endpoint\Todos;
 use Http\Client\Common\HttpMethodsClientInterface;
 use Http\Client\Common\Plugin\BaseUriPlugin;
 use Http\Client\Common\Plugin\HeaderDefaultsPlugin;
@@ -31,6 +32,11 @@ final class Sdk
                 ]
             )
         );
+    }
+    
+    public function todos(): Todos
+    {
+        return new Endpoint\Todos($this);
     }
 
     public function getHttpClient(): HttpMethodsClientInterface

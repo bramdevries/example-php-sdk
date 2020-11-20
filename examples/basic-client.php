@@ -12,5 +12,5 @@ $clientBuilder->addPlugin(new HeaderDefaultsPlugin([
 ]));
 
 $sdk = new Sdk($clientBuilder);
-$response = $sdk->getHttpClient()->get('/todos');
+$response = $sdk->todos()->all();
 
