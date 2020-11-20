@@ -12,4 +12,5 @@ $clientBuilder->addPlugin(new HeaderDefaultsPlugin([
 ]));
 
 $sdk = new Sdk($clientBuilder);
-$response = $sdk->getHttpClient()->get('https://jsonplaceholder.typicode.com/todos/');
+$response = $sdk->getHttpClient()->get('/todos');
+
