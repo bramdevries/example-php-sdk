@@ -1,6 +1,7 @@
 <?php
 
 use Api\Client\ClientBuilder;
+use Api\Client\Sdk;
 use Http\Client\Common\Plugin\HeaderDefaultsPlugin;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -10,5 +11,5 @@ $clientBuilder->addPlugin(new HeaderDefaultsPlugin([
     'Accept' => 'application/json',
 ]));
 
-$httpClient = $clientBuilder->getHttpClient();
-$response = $httpClient->get('https://jsonplaceholder.typicode.com/todos/');
+$sdk = new Sdk($clientBuilder);
+$response = $sdk->getHttpClient()->get('https://jsonplaceholder.typicode.com/todos/');
