@@ -12,19 +12,13 @@ use Http\Client\Common\Plugin\HeaderDefaultsPlugin;
 final class Sdk
 {
     private ClientBuilder $clientBuilder;
-    
-    private Options $options;
 
     public function __construct(Options $options = null)
     {
-        $this->options = $options ?? new Options();
-        
-        $this->clientBuilder = $this->options->getClientBuilder();
-        $uriFactory = $options->getUriFactory();
+        $options = $options ?? new Options();
 
-        $this->clientBuilder->addPlugin(
-            new BaseUriPlugin($uriFactory->createUri('https://jsonplaceholder.typicode.com'))
-        );
+        $this->clientBuilder = $options->getClientBuilder();
+        $this->clientBuilder->addPlugin(new BaseUriPlugin($options->getUri()));
         $this->clientBuilder->addPlugin(
             new HeaderDefaultsPlugin(
                 [
@@ -35,7 +29,7 @@ final class Sdk
             )
         );
     }
-    
+
     public function todos(): Todos
     {
         return new Endpoint\Todos($this);

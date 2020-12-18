@@ -6,6 +6,7 @@ namespace Api\Client;
 
 use Http\Discovery\Psr17FactoryDiscovery;
 use Psr\Http\Message\UriFactoryInterface;
+use Psr\Http\Message\UriInterface;
 
 final class Options
 {
@@ -24,5 +25,10 @@ final class Options
     public function getUriFactory(): UriFactoryInterface
     {
         return $this->options['uri_factory'] ?? Psr17FactoryDiscovery::findUriFactory();
+    }
+    
+    public function getUri(): UriInterface
+    {
+        return $this->getUriFactory()->createUri($this->options['uri'] ?? 'https://jsonplaceholder.typicode.com');
     }
 }
