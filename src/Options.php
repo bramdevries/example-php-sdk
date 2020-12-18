@@ -30,6 +30,10 @@ final class Options
                 'uri' => 'https://jsonplaceholder.typicode.com',
             ]
         );
+        
+        $resolver->setAllowedTypes('uri', 'string');
+        $resolver->setAllowedTypes('client_builder', ClientBuilder::class);
+        $resolver->setAllowedTypes('uri_factory', UriFactoryInterface::class);
     }
 
     public function getClientBuilder(): ClientBuilder
