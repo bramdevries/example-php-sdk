@@ -8,17 +8,19 @@ use Api\Client\Endpoint\Todos;
 use Http\Client\Common\HttpMethodsClientInterface;
 use Http\Client\Common\Plugin\BaseUriPlugin;
 use Http\Client\Common\Plugin\HeaderDefaultsPlugin;
-use Http\Discovery\Psr17FactoryDiscovery;
-use Http\Message\UriFactory;
 
 final class Sdk
 {
     private ClientBuilder $clientBuilder;
+    
+    private Options $options;
 
-    public function __construct(ClientBuilder $clientBuilder = null, UriFactory $uriFactory = null)
+    public function __construct(Options $options = null)
     {
-        $this->clientBuilder = $clientBuilder ?: new ClientBuilder();
-        $uriFactory = $uriFactory ?: Psr17FactoryDiscovery::findUriFactory();
+        $this->options = $options ?? new Options();
+        
+        $this->clientBuilder = $this->options->getClientBuilder();
+        $uriFactory = $options->getUriFactory();
 
         $this->clientBuilder->addPlugin(
             new BaseUriPlugin($uriFactory->createUri('https://jsonplaceholder.typicode.com'))

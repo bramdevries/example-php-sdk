@@ -1,6 +1,7 @@
 <?php
 
 use Api\Client\ClientBuilder;
+use Api\Client\Options;
 use Api\Client\Sdk;
 use Http\Client\Common\Plugin\HeaderDefaultsPlugin;
 
@@ -11,6 +12,8 @@ $clientBuilder->addPlugin(new HeaderDefaultsPlugin([
     'Accept' => 'application/json',
 ]));
 
-$sdk = new Sdk($clientBuilder);
-$response = $sdk->todos()->all();
+$options = new Options([
+    'client_builder' => $clientBuilder,
+]);
 
+$sdk = new Sdk($options);
