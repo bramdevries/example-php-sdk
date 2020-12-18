@@ -23,7 +23,8 @@
         "php-http/discovery": "^1.12",
         "psr/http-client": "^1.0",
         "psr/http-client-implementation": "^1.0",
-        "psr/http-factory": "^1.0"
+        "psr/http-factory": "^1.0",
+        "symfony/options-resolver": "^5.2"
     },
     "require-dev": {
         "php-http/curl-client": "^2.1",

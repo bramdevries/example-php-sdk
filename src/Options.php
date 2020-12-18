@@ -7,6 +7,7 @@ namespace Api\Client;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Psr\Http\Message\UriFactoryInterface;
 use Psr\Http\Message\UriInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class Options
 {
@@ -14,21 +15,35 @@ final class Options
 
     public function __construct(array $options = [])
     {
-        $this->options = $options;
+        $resolver = new OptionsResolver();
+        $this->configureOptions($resolver);
+
+        $this->options = $resolver->resolve($options);
+    }
+
+    private function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults(
+            [
+                'client_builder' => new ClientBuilder(),
+                'uri_factory' => Psr17FactoryDiscovery::findUriFactory(),
+                'uri' => 'https://jsonplaceholder.typicode.com',
+            ]
+        );
     }
 
     public function getClientBuilder(): ClientBuilder
     {
-        return $this->options['client_builder'] ?? new ClientBuilder();
+        return $this->options['client_builder'];
     }
-    
+
     public function getUriFactory(): UriFactoryInterface
     {
-        return $this->options['uri_factory'] ?? Psr17FactoryDiscovery::findUriFactory();
+        return $this->options['uri_factory'];
     }
-    
+
     public function getUri(): UriInterface
     {
-        return $this->getUriFactory()->createUri($this->options['uri'] ?? 'https://jsonplaceholder.typicode.com');
+        return $this->getUriFactory()->createUri($this->options['uri']);
     }
 }
