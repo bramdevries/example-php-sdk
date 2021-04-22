@@ -14,6 +14,11 @@
             "Api\\Client\\": "src"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Api\\Client\\Tests\\": "tests"
+        }
+    },
     "config": {
         "sort-packages": true
     },
@@ -27,8 +32,9 @@
         "symfony/options-resolver": "^5.2"
     },
     "require-dev": {
-        "php-http/curl-client": "^2.1",
         "laminas/laminas-diactoros": "^2.4",
+        "php-http/curl-client": "^2.1",
+        "phpunit/phpunit": "^9.5",
         "symfony/var-dumper": "^5.1"
     }
 }
