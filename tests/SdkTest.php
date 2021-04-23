@@ -25,4 +25,15 @@ final class SdkTest extends TestCase
 
         $this->assertEquals(201, $response->getStatusCode());
     }
+
+    public function testCanRequestMultiple201Responses(): void
+    {
+        $this->mockClient->addResponse((new Response())->withStatus(201));
+        $this->mockClient->addResponse((new Response())->withStatus(201));
+
+        $httpClient = $this->givenSdk()->getHttpClient();
+
+        $this->assertEquals(201, $httpClient->post('/todos')->getStatusCode());
+        $this->assertEquals(201, $httpClient->post('/todos')->getStatusCode());
+    }
 }
